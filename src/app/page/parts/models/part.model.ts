@@ -3,6 +3,7 @@
 // Corresponde ao modelo Part.java do backend.
 
 import { Category } from '../../categories/models/categories.model';
+import { VehicleModel } from '../../vehicle-models/models/vehicle-model.model';
 
 export interface Part {
     id?: string;          // ID único da peça (UUID no backend, string no frontend). Opcional para criação.
@@ -10,4 +11,5 @@ export interface Part {
     description?: string;  // Descrição da peça. Opcional.
     partNumber: string;   // Número de identificação da peça. Obrigatório.
     category: Category;   // Relação ManyToOne com Category. Representa a categoria à qual a peça pertence.
+    compatibleVehicles: VehicleModel[]; // Relação ManyToOne com VehicleModel. Representa os veículos compatíveis com a peça.
 }

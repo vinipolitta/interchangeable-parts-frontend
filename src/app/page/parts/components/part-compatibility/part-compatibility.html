@@ -47,7 +47,7 @@
       </div>
 
       <h3>Compatibilidades Existentes</h3>
-      @if (compatibilities.length === 0) {
+      @if (compatibilities && compatibilities.length === 0) {
         <div class="alert alert-info" role="alert">
           Nenhuma compatibilidade encontrada para esta peça.
         </div>
@@ -64,14 +64,14 @@
               </tr>
             </thead>
             <tbody>
-              @for (comp of compatibilities; track comp.id) {
+              @for (vehicle of compatibilities; track vehicle.id) {
                 <tr>
-                  <td>{{ comp.vehicleModel.manufacturer || 'N/A' }}</td>
-                  <td>{{ comp.vehicleModel.name || 'N/A' }}</td>
-                  <td>{{ comp.vehicleModel.year || 'N/A' }}</td>
-                  <td>{{ comp.notes || 'N/A' }}</td>
+                  <td>{{ vehicle.manufacturer || 'N/A' }}</td>
+                  <td>{{ vehicle.name || 'N/A' }}</td>
+                  <td>{{ vehicle.year || 'N/A' }}</td>
+                  <td>{{ vehicle.description || 'N/A' }}</td>
                   <td class="text-end">
-                    <button class="btn btn-sm btn-danger" (click)="deleteCompatibility(comp.id)">
+                    <button class="btn btn-sm btn-danger" (click)="deleteCompatibility(vehicle.id)">
                       <i class="bi bi-trash"></i> Remover
                     </button>
                   </td>

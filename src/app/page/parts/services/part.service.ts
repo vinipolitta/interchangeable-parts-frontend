@@ -80,8 +80,8 @@ export class PartService {
    * @param params (Opcional) Parâmetros de paginação e ordenação.
    * @returns Um Observable de PageResponse contendo uma lista de PartVehicleCompatibility.
    */
-  getPartCompatibilities(partId: string, params?: PaginationParams): Observable<PageResponse<PartVehicleCompatibility>> {
-    return this.apiService.getPaginated<PartVehicleCompatibility>(`${this.resourcePath}/${partId}/compatibilities`, params);
+  getPartCompatibilities(partId: string): Observable<any> {
+    return this.apiService.getPaginated<any>(`${this.resourcePath}/${partId}`);
   }
 
   /**

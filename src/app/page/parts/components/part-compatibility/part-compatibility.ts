@@ -28,7 +28,7 @@ import { ConfirmDialog } from '../../../../shared/components/confirm-dialog/conf
 export class PartCompatibilityComponent implements OnInit {
   partId: string | null = null;
   part: Part | null = null; // Detalhes da peça atual
-  compatibilities: PartVehicleCompatibility[] = []; // Compatibilidades da peça
+  compatibilities: any[] = []; // Compatibilidades da peça
   pageResponse: PageResponse<PartVehicleCompatibility> | null = null;
   paginationParams: PaginationParams = { page: 0, size: 10, sort: 'vehicleModel.name,asc' };
 
@@ -98,10 +98,12 @@ export class PartCompatibilityComponent implements OnInit {
     if (!this.partId) return; // Garante que o ID da peça está disponível
 
     this.isLoading = true; // Ativa o spinner para a lista de compatibilidades
-    this.partService.getPartCompatibilities(this.partId, this.paginationParams).subscribe({
+    this.partService.getPartCompatibilities(this.partId).subscribe({
       next: (response) => {
-        this.compatibilities = response.content;
-        this.pageResponse = response;
+        console.log('response', response);
+        // this.compatibilities = response.content;
+        this.compatibilities = response.compatibleVehicles;
+        console.log('compatibilities', this.compatibilities);
         this.isLoading = false;
       },
       error: (err) => {

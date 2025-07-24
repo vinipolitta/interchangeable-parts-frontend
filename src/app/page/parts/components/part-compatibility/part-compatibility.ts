@@ -66,9 +66,11 @@ export class PartCompatibilityComponent implements OnInit {
       })
     ).subscribe({
       next: (result) => {
-        const [part, vehicleModelsResponse] = result as [Part, PageResponse<VehicleModel>];
+        console.log('result', result);
+        const [part, vehicleModels] = result as [Part, VehicleModel[]];
         this.part = part;
-        this.availableVehicleModels = vehicleModelsResponse.content;
+        this.availableVehicleModels = vehicleModels;
+        console.log('availableVehicleModels', this.availableVehicleModels);
         this.loadPartCompatibilities(); // Carrega as compatibilidades após ter os dados base
       },
       error: (err) => {

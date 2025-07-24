@@ -42,6 +42,7 @@ export class VehicleModelListComponent implements OnInit {
       next: (response) => {
         // FIX: Garante que 'vehicleModels' é sempre um array, mesmo se 'response.content' for undefined/null
         this.vehicleModels = response ?? [];
+        console.log('vehicleModels', this.vehicleModels);
         this.isLoading = false;
       },
       error: (err) => {

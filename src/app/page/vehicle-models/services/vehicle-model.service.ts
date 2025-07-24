@@ -3,7 +3,7 @@
 // Gerencia operações CRUD para modelos de veículos.
 
 import { Injectable, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { VehicleModel } from '../models/vehicle-model.model'; // Importa a interface VehicleModel
 import { ApiService } from '../../../services/api.service'; // Importa o ApiService genérico
 import { PageResponse, PaginationParams } from '../../../shared/models/pagination.model'; // Importa modelos de paginação
@@ -23,7 +23,12 @@ export class VehicleModelService {
    * @returns Um Observable de PageResponse contendo uma lista de modelos de veículos.
    */
   getAllVehicleModels(): Observable<VehicleModel[]> {
-    return this.apiService.get<VehicleModel[]>(this.resourcePath);
+    return this.apiService.get<VehicleModel[]>(this.resourcePath).pipe(
+      map((response) => {
+        console.log('response', response);
+        return response;
+      })
+    );
   }
 
   /**

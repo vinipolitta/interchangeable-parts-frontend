@@ -92,10 +92,8 @@ export class PartService {
    * @returns Um Observable da PartVehicleCompatibility criada.
    */
   addPartCompatibility(partId: string, vehicleModelId: string, notes?: string): Observable<PartVehicleCompatibility> {
-    // O backend deve ter um endpoint que aceita o ID da peça e do modelo de veículo para criar a compatibilidade.
-    // O corpo da requisição pode ser um DTO simples que contenha apenas o vehicleModelId e notes.
-    const body = { vehicleModelId, notes };
-    return this.apiService.post<PartVehicleCompatibility>(`${this.resourcePath}/${partId}/compatibilities`, body);
+    const body = { partId, vehicleModelId, notes };
+    return this.apiService.post<PartVehicleCompatibility>('parts/vehicle-compatibility', body);
   }
 
   /**

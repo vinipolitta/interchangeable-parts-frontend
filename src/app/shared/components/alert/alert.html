@@ -1,0 +1,8 @@
+<div class="alert-container">
+    @for (alert of alerts; track alert) {
+      <div class="alert alert-dismissible fade show mt-3" [ngClass]="'alert-' + alert.type" role="alert">
+        {{ alert.message }}
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeAlert(alert)"></button>
+      </div>
+    }
+  </div>

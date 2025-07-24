@@ -1,0 +1,45 @@
+<div class="container mt-4">
+    <h2>{{ isEditMode ? 'Editar Categoria' : 'Nova Categoria' }}</h2>
+    <hr>
+
+    @if (isLoading) {
+      <app-loading-spinner></app-loading-spinner>
+    }
+
+    @if (!isLoading) {
+      <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="name" class="form-label">Nome da Categoria <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="name" formControlName="name"
+                 [class.is-invalid]="categoryForm.get('name')?.invalid && categoryForm.get('name')?.touched">
+          @if (categoryForm.get('name')?.invalid && categoryForm.get('name')?.touched) {
+            <div class="invalid-feedback">
+              @if (categoryForm.get('name')?.errors?.['required']) {
+                <div>Nome é obrigatório.</div>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label for="description" class="form-label">Descrição</label>
+          <textarea class="form-control" id="description" formControlName="description" rows="3"
+                    [class.is-invalid]="categoryForm.get('description')?.invalid && categoryForm.get('description')?.touched"></textarea>
+          @if (categoryForm.get('description')?.invalid && categoryForm.get('description')?.touched) {
+            <div class="invalid-feedback">
+              @if (categoryForm.get('description')?.errors?.['maxlength']) {
+                <div>A descrição deve ter no máximo 500 caracteres.</div>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="d-flex justify-content-end">
+          <button type="button" class="btn btn-secondary me-2" routerLink="/categories">Cancelar</button>
+          <button type="submit" class="btn btn-primary" [disabled]="categoryForm.invalid">
+            {{ isEditMode ? 'Salvar Alterações' : 'Criar Categoria' }}
+          </button>
+        </div>
+      </form>
+    }
+  </div>

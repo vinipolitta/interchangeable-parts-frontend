@@ -1,0 +1,74 @@
+<div class="container mt-4">
+    <h2>{{ isEditMode ? 'Editar Modelo de Veículo' : 'Novo Modelo de Veículo' }}</h2>
+    <hr>
+
+    @if (isLoading) {
+      <app-loading-spinner></app-loading-spinner>
+    }
+
+    @if (!isLoading) {
+      <form [formGroup]="vehicleModelForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="name" class="form-label">Nome do Modelo <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="name" formControlName="name"
+                 [class.is-invalid]="vehicleModelForm.get('name')?.invalid && vehicleModelForm.get('name')?.touched">
+          @if (vehicleModelForm.get('name')?.invalid && vehicleModelForm.get('name')?.touched) {
+            <div class="invalid-feedback">
+              @if (vehicleModelForm.get('name')?.errors?.['required']) {
+                <div>Nome é obrigatório.</div>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label for="manufacturer" class="form-label">Fabricante <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="manufacturer" formControlName="manufacturer"
+                 [class.is-invalid]="vehicleModelForm.get('manufacturer')?.invalid && vehicleModelForm.get('manufacturer')?.touched">
+          @if (vehicleModelForm.get('manufacturer')?.invalid && vehicleModelForm.get('manufacturer')?.touched) {
+            <div class="invalid-feedback">
+              @if (vehicleModelForm.get('manufacturer')?.errors?.['required']) {
+                <div>Fabricante é obrigatório.</div>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label for="year" class="form-label">Ano</label>
+          <input type="number" class="form-control" id="year" formControlName="year"
+                 [class.is-invalid]="vehicleModelForm.get('year')?.invalid && vehicleModelForm.get('year')?.touched">
+          @if (vehicleModelForm.get('year')?.invalid && vehicleModelForm.get('year')?.touched) {
+            <div class="invalid-feedback">
+              @if (vehicleModelForm.get('year')?.errors?.['min']) {
+                <div>Ano deve ser um valor positivo.</div>
+              }
+              @if (vehicleModelForm.get('year')?.errors?.['max']) {
+                <div>Ano não pode ser maior que o ano atual.</div>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label for="description" class="form-label">Descrição</label>
+          <textarea class="form-control" id="description" formControlName="description" rows="3"
+                    [class.is-invalid]="vehicleModelForm.get('description')?.invalid && vehicleModelForm.get('description')?.touched"></textarea>
+          @if (vehicleModelForm.get('description')?.invalid && vehicleModelForm.get('description')?.touched) {
+            <div class="invalid-feedback">
+              @if (vehicleModelForm.get('description')?.errors?.['maxlength']) {
+                <div>A descrição deve ter no máximo 500 caracteres.</div>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="d-flex justify-content-end">
+          <button type="button" class="btn btn-secondary me-2" routerLink="/vehicle-models">Cancelar</button>
+          <button type="submit" class="btn btn-primary" [disabled]="vehicleModelForm.invalid">
+            {{ isEditMode ? 'Salvar Alterações' : 'Criar Modelo' }}
+          </button>
+        </div>
+      </form>
+    }
+  </div>
